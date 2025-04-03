@@ -2,6 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { Plus, X, Code, Copy, Check, ChevronDown, ChevronUp, AlertCircle, HelpCircle, Sparkles } from 'lucide-react';
 import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/cjs/styles/prism';
+import json from 'react-syntax-highlighter/dist/cjs/languages/prism/json';
+
+// Register the JSON language
+SyntaxHighlighter.registerLanguage('json', json);
 
 const SequenceBuilderModal = ({
   show,
@@ -282,19 +286,25 @@ const SequenceBuilderModal = ({
               </div>
             </div>
             
-            <div className="flex-1 overflow-y-auto p-4">
-              <SyntaxHighlighter 
-                language="json" 
-                style={vscDarkPlus}
-                customStyle={{ 
-                  margin: 0,
-                  background: 'transparent',
-                  fontSize: '0.875rem',
-                  height: '100%'
-                }}
-              >
-                {generateCourierCode()}
-              </SyntaxHighlighter>
+            <div className="flex-1 overflow-y-auto">
+              <div className="p-4">
+                <SyntaxHighlighter 
+                  language="json"
+                  style={vscDarkPlus}
+                  customStyle={{ 
+                    margin: 0,
+                    padding: '1rem',
+                    background: 'transparent',
+                    fontSize: '0.875rem',
+                    borderRadius: '0.5rem',
+                  }}
+                  showLineNumbers={true}
+                  wrapLines={true}
+                  wrapLongLines={true}
+                >
+                  {JSON.stringify(JSON.parse(generateCourierCode()), null, 2)}
+                </SyntaxHighlighter>
+              </div>
             </div>
           </div>
         </div>
